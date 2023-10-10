@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "bubblesort.h"
+#include "insertsort.h"
 #include "picksort.h"
 #include "sorts.h"
 int main() {
@@ -8,7 +9,7 @@ int main() {
 //    const char *a[] = {"hello","world","help","I"};   // string
     int n = sizeof(a)/sizeof(a[0]);
 //    bubblesort(a,n,sizeof(int),cmpInt);
-    picksort(a,n,sizeof(float),cmpFloat);
+    insertsort(a,n,sizeof(float),cmpFloat);
 //    bubblesort(a,n,sizeof(char*),cmpString);
     for(int i = 0;i<n;++i)
 //        printf("%d ",a[i]);
