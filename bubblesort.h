@@ -22,7 +22,5 @@
   */
 void bubblesort(void *array,int numElements,size_t elementSize,int(*cmp)(const void*,const void*));
 
-int cmpInt(const void* a,const void *b);                // compare with int
-int cmpFloat(const void* a,const void *b);              // compare with float
-int cmpString(const void** a,const void** b);           // compare with string
+
 #endif //SORTS_BUBBLESORT_H
