@@ -12,4 +12,6 @@ add_executable(sorts main.c
         sorts.c
         sorts.h
         insertsort.c
-        insertsort.h)
+        insertsort.h
+        quicksort.c
+        quicksort.h)
