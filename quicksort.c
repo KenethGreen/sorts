@@ -36,15 +36,16 @@ void swap(void **a,void **b,size_t size)
 
 int partition(void *array,int numElements,size_t size,int low,int high,int(*cmp)(const void*,const void*))
 {
+    if(low == high)                                                     // if here is one element in this part
+        return high;
     char *elements = (char *)array;                                     // 1 byte each step
     void *pivot = elements + high * size;                               // set pivot value to compare with
     int i = low -1;                                                     // initial start-index
-    int j = high+1;                                                     // initial end-index
+    int j = high;                                                       // initial end-index
     void *currentElement = NULL;                                        // initial currentElement
-    while(1)
+    while(i<j)
     {
         ++i;                                                            // update low-edge
-        --j;                                                            // update high-edge
         currentElement = elements + i * size;                           // set currentElement with offset i
         while((i<j)&&cmp(currentElement,pivot)<0)                       // if index i is legal and current-element is less than  pivot
         {
@@ -52,8 +53,6 @@ int partition(void *array,int numElements,size_t size,int low,int high,int(*cmp)
             currentElement = elements + i * size;                       // update currentElement
         }
         swap(&currentElement,&pivot,size);                              // swap elements stored in offset i and j space in array
-        if(i==--j)                                                      // if j is not legal, jump out the while-loop
-            break;
         currentElement = elements + j * size;                           // update currentElement
         while((i<j)&&cmp(currentElement,pivot)>0)                       // if index j is legal and current-element is larger than pivot
         {
@@ -61,14 +60,14 @@ int partition(void *array,int numElements,size_t size,int low,int high,int(*cmp)
             currentElement = elements + j * size;                       // update currentElement
         }
         swap(&currentElement,&pivot,size);                              // swap elements stored in offset i and j space in array
-        if(i+1>=j)                                                      // if index i+1 is not legal, jump out the while-loop
-            break;
     }
-    return i+1;                                                         // return the offset which the pivot pointed at now
+    return i;                                                           // return the offset which the pivot pointed at now
 }
 
 void quicksort(void *array,int numElements,size_t elementSize,int low,int high,int(*cmp)(const void*,const void*))
 {
+    if(low == high)
+        return;
     int stack[high-low+1];                                                              // initial a stack for storing index
     int top = -1;                                                                       // initial top index
     stack[++top] = low;                                                                 // initial low-edge
