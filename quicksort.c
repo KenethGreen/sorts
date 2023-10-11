@@ -40,28 +40,26 @@ int partition(void *array,int numElements,size_t size,int low,int high,int(*cmp)
         return high;
     char *elements = (char *)array;                                     // 1 byte each step
     void *pivot = elements + high * size;                               // set pivot value to compare with
-    int i = low -1;                                                     // initial start-index
-    int j = high;                                                       // initial end-index
-    void *currentElement = NULL;                                        // initial currentElement
-    while(i<j)
+    int i = low - 1;                                                    // initial the select pointer
+    void *currentElement = NULL;                                        // initial the currentElement for j
+    void *searchElement = NULL;                                         // initial the searchElement for i
+    for(int j = low;j<high;++j)                                         // compare elements whose offset is from 0 to high-1 with pivot whose offset is high
     {
-        ++i;                                                            // update low-edge
-        currentElement = elements + i * size;                           // set currentElement with offset i
-        while((i<j)&&cmp(currentElement,pivot)<0)                       // if index i is legal and current-element is less than  pivot
+        currentElement = elements + j * size;                           // update curentElement
+        if(cmp(currentElement,pivot)<0)                                 // if true, the select pointer go-next 1 step
         {
-            ++i;                                                        // offset i go-next 1 step;
-            currentElement = elements + i * size;                       // update currentElement
+            ++i;                                                        // the select pointer goes next
+            if(i!=j)                                                    // if true, swap searchElement and currentElement
+            {
+                searchElement = elements + i * size;
+                swap(&searchElement,&currentElement,size);
+            }
         }
-        swap(&currentElement,&pivot,size);                              // swap elements stored in offset i and j space in array
-        currentElement = elements + j * size;                           // update currentElement
-        while((i<j)&&cmp(currentElement,pivot)>0)                       // if index j is legal and current-element is larger than pivot
-        {
-            --j;                                                        // offset j go-front 1 step;
-            currentElement = elements + j * size;                       // update currentElement
-        }
-        swap(&currentElement,&pivot,size);                              // swap elements stored in offset i and j space in array
     }
-    return i;                                                           // return the offset which the pivot pointed at now
+    currentElement = elements + high * size;                            // select the high element also the last element
+    searchElement = elements + (i+1) * size;                            // select the offset(i+1) element
+    swap(&searchElement,&currentElement,size);                          // swap them
+    return i+1;
 }
 
 void quicksort(void *array,int numElements,size_t elementSize,int low,int high,int(*cmp)(const void*,const void*))
