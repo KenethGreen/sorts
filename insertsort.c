@@ -37,7 +37,7 @@ void insertsort(void* array,int numElements,size_t elementSize,int(*cmp)(const v
                         memcpy(temp,currentElement,elementSize);
                         memcpy(currentElement,before,elementSize);
                         memcpy(before,temp,elementSize);
-                        currentElement = temp;                                  // update the currentElement
+                        currentElement = before;                                  // update the currentElement
                         free(temp);temp=NULL;
                     }
                     else                                                        // if the currentElement is larger than the before one, means sort successfully from start to the currentElement
