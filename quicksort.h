@@ -17,10 +17,8 @@
   * @param  array:              the array need to be sort
   * @param  numElements:        the number of elements in array
   * @param  elementSize:        byte-size of elements
-  * @param  low:                start-index
-  * @param  high:               end-index
   * @param  cmp:                compare function
   * @retval None
   */
-void quicksort(void *array,int numElements,size_t elementSize,int low,int high,int(*cmp)(const void*,const void*));
+void quicksort(void *array,int numElements,size_t elementSize,int(*cmp)(const void*,const void*));
 #endif //SORTS_QUICKSORT_H

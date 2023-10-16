@@ -62,10 +62,12 @@ int partition(void *array,int numElements,size_t size,int low,int high,int(*cmp)
     return i+1;
 }
 
-void quicksort(void *array,int numElements,size_t elementSize,int low,int high,int(*cmp)(const void*,const void*))
+void quicksort(void *array,int numElements,size_t elementSize,int(*cmp)(const void*,const void*))
 {
-    if(low == high)
+    if(numElements<=1)
         return;
+    int high = numElements-1;
+    int low = 0;
     int stack[high-low+1];                                                              // initial a stack for storing index
     int top = -1;                                                                       // initial top index
     stack[++top] = low;                                                                 // initial low-edge
